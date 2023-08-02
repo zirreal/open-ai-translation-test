@@ -1,0 +1,6 @@
+- path: '/'
+  component: './src/pages/Index.vue'
+  typename: 'page'
+- path: '/about/'
+  component: './src/pages/About.vue'
+  typename: 'page'

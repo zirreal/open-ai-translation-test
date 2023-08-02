@@ -1,15 +1,11 @@
 <template>
   <div class="layout">
-    <header class="header">
-      <strong>
-        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
-      </strong>
-      <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about/">About</g-link>
-      </nav>
-    </header>
-    <slot/>
+    <div class="wrapper" v-show="isShown">
+      <Header @setShow="setShow"/>
+      <slot/>
+      <Footer/>
+    </div>
+    <Spinner v-if="!isShown"/>
   </div>
 </template>
 
@@ -20,6 +16,30 @@ query {
   }
 }
 </static-query>
+
+<script>
+export default {
+  components: {
+    Header: () => import('~/components/Header.vue'),
+    Spinner: () => import('~/components/Spinner.vue'),
+    Footer: () => import('~/components/Footer.vue'),
+  },
+
+  data() {
+    return {
+      isShown: false,
+      loading: false
+    }
+  },
+
+  methods: {
+
+    setShow(show) {
+      this.isShown = show
+    }
+  },
+}
+</script>
 
 <style>
 body {
@@ -34,6 +54,7 @@ body {
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
+  padding-bottom: 20px;
 }
 
 .header {
